@@ -1,0 +1,91 @@
+project:
+  name: FAA_Wildlife_Damage_Prediction
+  problem_type: binary_classification
+  target: Damage_Binary
+  positive_class: 1
+  negative_class: 0
+  random_state: 42
+
+data:
+  source_file: ../FAA_0619_preprocessed_dataset_for_team.xlsx
+  sheet_name: Final_Dataset
+  analysis_period: "2020-2026"
+  unit: wildlife strike incident
+  expected_rows: 42920
+  expected_columns: 53
+
+split:
+  official_train_size: 0.80
+  official_test_size: 0.20
+  stratify: true
+  internal_validation_from_train: true
+  internal_validation_size: 0.20
+
+features:
+  main:
+    - INCIDENT_MONTH
+    - TIME_OF_DAY
+    - PHASE_OF_FLIGHT
+    - ALTITUDE_GROUP
+    - DISTANCE_GROUP
+    - SPECIES
+    - SIZE_CLEAN
+    - NUM_STRUCK
+    - AC_CLASS
+    - AC_MASS
+    - TYPE_ENG
+    - NUM_ENGS
+    - FAAREGION
+    - STATE
+    - SKY_CLEAN
+  exclude_exact:
+    - DAMAGE_LEVEL
+    - INDICATED_DAMAGE
+    - COST_REPAIRS
+    - COST_OTHER
+    - AOS
+    - EFFECT
+    - INDEX_NR
+    - index
+    - REG
+    - FLT
+    - REMARKS
+    - COMMENTS
+    - REMAINS_COLLECTED
+    - REMAINS_SENT
+  exclude_prefix:
+    - DAM_
+    - STR_
+    - ING_
+
+preprocessing:
+  categorical_missing: Unknown
+  rare_category_label: Other
+  rare_category_min_count: 50
+  encoding: OneHotEncoding
+  encoder_fit_scope: train_only
+
+models:
+  required:
+    - Logistic Regression
+    - Decision Tree
+    - RandomForest
+
+evaluation:
+  main_metrics:
+    - Recall
+    - F1-score
+  support_metrics:
+    - Accuracy
+    - Precision
+    - ROC-AUC
+    - PR-AUC
+    - Confusion Matrix
+  threshold_selection:
+    use_validation: true
+    candidates:
+      - default_0.5
+      - max_f1
+      - max_f2
+      - precision_35_recall_max
+      - precision_40_recall_max
