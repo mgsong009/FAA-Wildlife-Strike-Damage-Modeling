@@ -1,0 +1,120 @@
+AIRPORT,dominant_phase,common_altitude_group,common_size,common_species
+ADDISON AIRPORT,Approach,"1,501-3,500 ft",Medium,Unknown bird
+ALBANY INTL,Approach,0-500 ft,Small,Unknown bird - small
+ALBUQUERQUE INTL SUNPORT,Approach,0-500 ft,Small,Unknown bird
+AUSTIN-BERGSTROM INTL,Approach,0-500 ft,Small,Unknown bird - small
+BALTIMORE/WASH INTL THURGOOD MARSHAL ARPT,Approach,0-500 ft,Small,Unknown bird - small
+BELIZE INTERNATIONAL ARPT,Approach,"3,501-10,000 ft",Large,Unknown bird
+BELLINGHAM INTL,Approach,0-500 ft,Medium,Gulls
+BILL AND  HILLARY CLINTON NATL ARPT/ADAMS FIELD,Approach,0-500 ft,Small,Unknown bird
+BIRMINGHAM-SHUTTLESWORTH INTL,Approach,0-500 ft,Small,Unknown bird - small
+BOB HOPE ARPT,Approach,0-500 ft,Small,Unknown bird
+BOISE AIR TERMINAL/GOWEN FIELD,Approach,0-500 ft,Small,Unknown bird
+BRADLEY INTL,Approach,0-500 ft,Small,Unknown bird - small
+BUFFALO-NIAGARA INTL,Approach,0-500 ft,Unknown,Unknown bird
+CANCUN INTL,Approach,0-500 ft,Small,Unknown bird
+CHARLESTON AFB/INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+CHARLOTTE/DOUGLAS INTL ARPT,Approach,"1,501-3,500 ft",Small,Unknown bird
+CHICAGO MIDWAY INTL ARPT,Approach,0-500 ft,Unknown,Unknown bird
+CHICAGO O'HARE INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+CINCINNATI/NORTHERN KENTUCKY INTL ARPT,Approach,0-500 ft,Small,European starling
+CITY OF COLORADO SPRINGS MUNI APRT,Approach,0-500 ft,Small,Unknown bird
+CLEVELAND-HOPKINS INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+CORPUS CHRISTI INTL ARPT,Approach,0-500 ft,Unknown,Unknown bird
+DALLAS LOVE FIELD ARPT,Approach,0-500 ft,Small,Unknown bird
+DALLAS/FORT WORTH INTL ARPT,Climb,0-500 ft,Unknown,Unknown bird
+DANIEL K. INOUYE INTERNATIONAL AIRPORT,Approach,0-500 ft,Small,Unknown bird
+DANIEL ODUBER QUIROS INTL,Approach,0-500 ft,Unknown,Unknown bird
+DENVER INTL AIRPORT,Take-off Run,0-500 ft,Small,Unknown bird - small
+DES MOINES INTL,Approach,0-500 ft,Small,Unknown bird - small
+DETROIT METRO WAYNE COUNTY ARPT,Approach,0-500 ft,Small,Unknown bird
+EGLIN AIR FORCE BASE/DESTIN-FORT WALTON BEACH AIRPORT,Approach,0-500 ft,Small,Unknown bird - small
+EL PASO INTL ARPT,Approach,0-500 ft,Small,Unknown bird - small
+EL SALVADOR INTL,Approach,0-500 ft,Small,Unknown bird
+ELLINGTON FIELD ARPT,Approach,"3,501-10,000 ft",Medium,Unknown bird - medium
+EPPLEY AIRFIELD,Approach,0-500 ft,Small,Unknown bird
+FORT LAUDERDALE/HOLLYWOOD INTL,Approach,0-500 ft,Small,Unknown bird
+FRESNO YOSEMITE INTL,Approach,0-500 ft,Small,Cliff swallow
+GALLATIN FIELD ARPT,Approach,0-500 ft,Small,Unknown bird
+GENERAL EDWARD LAWRENCE LOGAN INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+GENERAL MITCHELL INTL,Approach,0-500 ft,Small,Unknown bird
+GEORGE BUSH INTERCONTINENTAL/ HOUSTON ARPT,Approach,0-500 ft,Small,Unknown bird
+GERALD R. FORD INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+GREATER ROCHESTER INTL,Approach,0-500 ft,Small,Unknown bird
+GREENVILLE-SPARTANBURG INTL,Approach,0-500 ft,Small,Unknown bird
+HARRY REID INTERNATIONAL AIRPORT,Approach,0-500 ft,Small,Unknown bird
+HARTSFIELD - JACKSON ATLANTA INTL ARPT,Approach,0-500 ft,Small,Unknown bird - small
+HILO INTL ARPT,Landing Roll,0-500 ft,Small,Unknown bird - small
+INDIANAPOLIS INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+JACKSON EVERS INTL,Approach,0-500 ft,Small,Unknown bird - small
+JACKSONVILLE INTL,Approach,0-500 ft,Small,Unknown bird - small
+JOHN GLENN COLUMBUS INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+JOHN WAYNE-ORANGE COUNTY ARPT,Approach,0-500 ft,Small,Unknown bird - small
+JOSE MARTI INTL ARPT,Approach,0-500 ft,Small,Unknown bird - small
+JUAN SANTAMARIA INTL,Climb,0-500 ft,Unknown,Unknown bird
+KAHULUI ARPT,Landing Roll,0-500 ft,Small,Unknown bird
+KANSAS CITY INTL,Approach,0-500 ft,Small,Unknown bird
+LA GUARDIA ARPT,Approach,Unknown,Small,Unknown bird
+LAMBERT-ST LOUIS INTL,Approach,0-500 ft,Small,Unknown bird
+LIHUE ARPT,Landing Roll,0-500 ft,Small,Unknown bird - small
+LONG BEACH-DAUGH FLD,Approach,0-500 ft,Small,Unknown bird - small
+LONG ISLAND MAC ARTHUR,Approach,0-500 ft,Small,Unknown bird
+LOS ANGELES INTL,Approach,0-500 ft,Small,Unknown bird
+LOS CABOS INTL,Approach,0-500 ft,Small,Unknown bird - small
+LOUIE ARMSTRONG NEW ORLEANS INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+LUBBOCK PRESTON SMITH INTL ARPT,Landing Roll,0-500 ft,Small,Unknown bird
+LUIS MUNOZ MARIN INTL,Landing Roll,0-500 ft,Small,Unknown bird - small
+LYNDEN PINDLING INTL ARPT,Approach,0-500 ft,Unknown,Unknown bird
+MAHLON SWEET FLD,Approach,0-500 ft,Small,American kestrel
+MANCHESTER AIRPORT,Approach,0-500 ft,Small,Unknown bird
+MARCH ARB ARPT,Landing Roll,0-500 ft,Small,Unknown bird - small
+MCKINNEY NATIONAL ARPT,Approach,"1,501-3,500 ft",Unknown,Unknown bird
+MEMPHIS INTL,Approach,0-500 ft,Small,Unknown bird - small
+METRO OAKLAND INTL,Approach,0-500 ft,Small,Unknown bird
+MIAMI INTL,Approach,0-500 ft,Small,Unknown bird
+MINNEAPOLIS-ST PAUL INTL/WOLD-CHAMBERLAIN ARPT,Approach,Unknown,Small,Unknown bird
+MUHAMMAD ALI INTERNATIONAL,Approach,0-500 ft,Small,Unknown bird
+MYRTLE BEACH INTL,Approach,0-500 ft,Small,Unknown bird
+NASHVILLE INTL,Approach,0-500 ft,Small,Unknown bird
+NORFOLK INTL,Approach,0-500 ft,Small,Unknown bird - small
+NORMAN Y. MINETA SAN JOSE INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+NORTHWEST FLORIDA BEACHES INTL,Approach,0-500 ft,Small,Unknown bird
+ONTARIO INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+ORLANDO INTL,Approach,0-500 ft,Small,Unknown bird
+OWEN ROBERTS INTL,Approach,0-500 ft,Small,Unknown bird - small
+PALM BEACH INTL,Approach,0-500 ft,Small,Unknown bird - small
+PALM SPRINGS INTL,Approach,0-500 ft,Small,Unknown bird
+PENSACOLA INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+PHILADELPHIA INTL,Approach,0-500 ft,Small,Unknown bird - small
+PHOENIX SKY HARBOR INTL ARPT,Approach,0-500 ft,Unknown,Unknown bird
+PITTSBURGH INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+PORTLAND INTL (OR),Approach,0-500 ft,Small,Unknown bird
+PORTLAND INTL JETPORT (ME),Approach,0-500 ft,Small,Ring-billed gull
+PROVIDENCIALES INTL,Take-off Run,0-500 ft,Medium,American kestrel
+PUERTO VALLARTA,Landing Roll,0-500 ft,Small,Unknown bird - small
+RALEIGH-DURHAM INTL,Approach,0-500 ft,Unknown,Unknown bird
+RENO TAHOE INTL,Approach,0-500 ft,Small,Unknown bird - small
+RHODE ISLAND TF GREEN INTERNATIONAL AIRPORT,Approach,0-500 ft,Small,Chimney swift
+RICHMOND INTL,Approach,0-500 ft,Unknown,Unknown bird
+RICK HUSBAND AMARILLO INTL,Approach,0-500 ft,Small,Unknown bird - small
+RONALD REAGAN WASHINGTON NATIONAL ARPT,Approach,0-500 ft,Small,Unknown bird - small
+SACRAMENTO INTL,Approach,0-500 ft,Small,Unknown bird
+SALT LAKE CITY INTL,Approach,0-500 ft,Small,Unknown bird
+SAN ANTONIO INTL,Approach,0-500 ft,Small,Unknown bird
+SAN DIEGO INTL,Approach,0-500 ft,Unknown,Unknown bird
+SAN FRANCISCO INTL ARPT,Approach,0-500 ft,Unknown,Unknown bird
+SANTA BARBARA MUNICIPAL,Approach,0-500 ft,Small,Cliff swallow
+SARASOTA-BRADENTON INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+SAVANNAH/HILTON HEAD INTL ARPT,Approach,0-500 ft,Unknown,Unknown bird
+SEATTLE-TACOMA INTL,Approach,0-500 ft,Unknown,Unknown bird
+SOUTHWEST FLORIDA INTL ARPT,Approach,0-500 ft,Small,Unknown bird
+SPOKANE INTERNATIONAL,Approach,0-500 ft,Small,Unknown bird
+SYRACUSE HANCOCK INTL,Approach,0-500 ft,Small,Unknown bird
+TAMPA INTL,Approach,0-500 ft,Small,Unknown bird
+TULSA INTL,Approach,0-500 ft,Small,Unknown bird
+VALLEY INTL,Approach,0-500 ft,Small,Unknown bird
+WASHINGTON DULLES INTL ARPT,Approach,0-500 ft,Small,Unknown bird - small
+WICHITA DWIGHT D EISENHOWER NATL ARPT,Take-off Run,0-500 ft,Small,Unknown bird
+WILL ROGERS WORLD ARPT,Approach,0-500 ft,Small,Unknown bird
+WILLIAM P HOBBY ARPT,Approach,0-500 ft,Small,Unknown bird
+YAMPA VALLEY,Approach,0-500 ft,Small,Horned lark

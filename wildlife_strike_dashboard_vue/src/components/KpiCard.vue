@@ -2,15 +2,15 @@
 defineProps<{
   label: string;
   value: string;
-  note?: string;
-  tone?: 'cyan' | 'mint' | 'orange' | 'red';
+  detail?: string;
+  tone?: "neutral" | "green" | "amber" | "red" | "blue";
 }>();
 </script>
 
 <template>
-  <section class="kpi-card" :class="tone ?? 'cyan'">
+  <article class="kpi-card" :class="tone ?? 'neutral'">
     <span>{{ label }}</span>
     <strong>{{ value }}</strong>
-    <small v-if="note">{{ note }}</small>
-  </section>
+    <small v-if="detail">{{ detail }}</small>
+  </article>
 </template>

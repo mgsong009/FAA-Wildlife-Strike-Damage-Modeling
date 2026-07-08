@@ -1,247 +1,193 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue';
-import FilterPanel from './components/FilterPanel.vue';
-import KpiCard from './components/KpiCard.vue';
-import PlotlyChart from './components/PlotlyChart.vue';
-import VisualExplainer from './components/VisualExplainer.vue';
-import type { FilterState, MetricRow, PredictionRow, RiskStat, StrikeRecord } from './types';
-import {
-  confusionMatrix,
-  damageDonut,
-  featureImportance,
-  frequencySeverityMatrix,
-  modelMetricComparison,
-  monthlyTrend,
-  phaseAltitudeHeatmap,
-  riskBar
-} from './utils/charts';
-import { compactNumber, formatPercent, loadDashboardData, type NormalizedMetricRow } from './utils/data';
-import { applyFilters, createEmptyFilters } from './utils/filters';
-import { calculateDamageRate, calculateOverallDamageRate } from './utils/risk';
+import { computed, onMounted, ref } from "vue";
+import AnalyticsOverview from "./pages/AnalyticsOverview.vue";
+import DamageAssessment from "./pages/DamageAssessment.vue";
+import FlightPhaseExplorer from "./pages/FlightPhaseExplorer.vue";
+import OperatorApplicationDemo from "./pages/OperatorApplicationDemo.vue";
+import RiskFactorIntelligence from "./pages/RiskFactorIntelligence.vue";
+import type {
+  AssessmentScenarioRow,
+  FeatureRow,
+  IncidentRow,
+  MetricRow,
+  MonthlyTrendRow,
+  OperatorRow,
+  RiskRow,
+  StrikeRecord,
+  SummaryRow,
+} from "./types";
+import { loadCsv } from "./utils/csv";
 
-type PageKey = 'overview' | 'flight' | 'wildlife' | 'matrix' | 'model' | 'insight';
+type TabId = "analytics" | "assessment" | "phase" | "factors" | "operator";
 
-interface DashboardData {
-  strikes: StrikeRecord[];
-  metrics: NormalizedMetricRow[];
-  finalMetrics: NormalizedMetricRow[];
-  predictions: PredictionRow[];
-  featureImportance: Record<string, string | number>[];
-}
-
-const pages: { key: PageKey; label: string }[] = [
-  { key: 'overview', label: 'Risk Overview' },
-  { key: 'flight', label: 'Flight Condition' },
-  { key: 'wildlife', label: 'Wildlife Impact' },
-  { key: 'matrix', label: 'Frequency-Severity' },
-  { key: 'model', label: 'Model Performance' },
-  { key: 'insight', label: 'Final Insight' }
+const tabs: Array<{ id: TabId; label: string; index: string }> = [
+  { id: "analytics", label: "Analytics Overview", index: "0" },
+  { id: "assessment", label: "Post-Strike Assessment", index: "1" },
+  { id: "phase", label: "Flight Phase Risk", index: "2" },
+  { id: "factors", label: "Wildlife & Aircraft Factors", index: "3" },
+  { id: "operator", label: "Operator / Airport Demo", index: "4" },
 ];
 
-const data = ref<DashboardData | null>(null);
-const loadError = ref('');
-const activePage = ref<PageKey>('overview');
-const minCount = ref(50);
-const filters = reactive<FilterState>(createEmptyFilters());
-const matrixGroup = ref<keyof StrikeRecord>('PHASE_OF_FLIGHT');
-const selectedModel = ref('Decision Tree');
+const activeTab = ref<TabId>("analytics");
+const loading = ref(true);
+const error = ref("");
+
+const summary = ref<SummaryRow[]>([]);
+const monthly = ref<MonthlyTrendRow[]>([]);
+const scenarios = ref<AssessmentScenarioRow[]>([]);
+const phaseRisk = ref<RiskRow[]>([]);
+const sizeRisk = ref<RiskRow[]>([]);
+const altitudeRisk = ref<RiskRow[]>([]);
+const numRisk = ref<RiskRow[]>([]);
+const speciesRisk = ref<RiskRow[]>([]);
+const distanceRisk = ref<RiskRow[]>([]);
+const metrics = ref<MetricRow[]>([]);
+const finalMetrics = ref<MetricRow[]>([]);
+const features = ref<FeatureRow[]>([]);
+const operators = ref<OperatorRow[]>([]);
+const incidents = ref<IncidentRow[]>([]);
+const records = ref<StrikeRecord[]>([]);
 
 onMounted(async () => {
   try {
-    data.value = await loadDashboardData();
-  } catch (error) {
-    loadError.value = error instanceof Error ? error.message : '데이터를 불러오지 못했습니다.';
+    const [
+      summaryRows,
+      monthlyRows,
+      scenarioRows,
+      phaseRows,
+      sizeRows,
+      altitudeRows,
+      numRows,
+      speciesRows,
+      distanceRows,
+      metricRows,
+      finalMetricRows,
+      featureRows,
+      operatorRows,
+      incidentRows,
+      recordRows,
+    ] = await Promise.all([
+      loadCsv<SummaryRow>("/data/dashboard_summary.csv"),
+      loadCsv<MonthlyTrendRow>("/data/monthly_damage_trend.csv"),
+      loadCsv<AssessmentScenarioRow>("/data/assessment_scenarios.csv"),
+      loadCsv<RiskRow>("/data/risk_by_phase.csv"),
+      loadCsv<RiskRow>("/data/risk_by_size.csv"),
+      loadCsv<RiskRow>("/data/risk_by_altitude_group.csv"),
+      loadCsv<RiskRow>("/data/risk_by_num_struck.csv"),
+      loadCsv<RiskRow>("/data/risk_by_species.csv"),
+      loadCsv<RiskRow>("/data/risk_by_distance_group.csv"),
+      loadCsv<MetricRow>("/data/metrics_table.csv"),
+      loadCsv<MetricRow>("/data/final_model_metrics.csv"),
+      loadCsv<FeatureRow>("/data/feature_importance.csv"),
+      loadCsv<OperatorRow>("/data/operator_summary_top30.csv"),
+      loadCsv<IncidentRow>("/data/operator_incident_queue.csv"),
+      loadCsv<StrikeRecord>("/data/processed_modeling_data.csv"),
+    ]);
+
+    summary.value = summaryRows;
+    monthly.value = monthlyRows;
+    scenarios.value = scenarioRows;
+    phaseRisk.value = phaseRows.filter((row) => row.min_count_pass === "True");
+    sizeRisk.value = sizeRows.filter((row) => row.min_count_pass === "True");
+    altitudeRisk.value = altitudeRows.filter((row) => row.min_count_pass === "True");
+    numRisk.value = numRows.filter((row) => row.min_count_pass === "True");
+    speciesRisk.value = speciesRows.filter((row) => row.min_count_pass === "True");
+    distanceRisk.value = distanceRows.filter((row) => row.min_count_pass === "True");
+    metrics.value = metricRows;
+    finalMetrics.value = finalMetricRows;
+    features.value = featureRows;
+    operators.value = operatorRows;
+    incidents.value = incidentRows;
+    records.value = recordRows;
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : "Unable to load dashboard data";
+  } finally {
+    loading.value = false;
   }
 });
 
-const filteredRows = computed(() => (data.value ? applyFilters(data.value.strikes, filters) : []));
-const totalCases = computed(() => filteredRows.value.length);
-const damagedCases = computed(() => filteredRows.value.reduce((sum, row) => sum + Number(row.Damage_Binary || 0), 0));
-const damageRate = computed(() => calculateOverallDamageRate(filteredRows.value));
-
-const phaseStats = computed(() => calculateDamageRate(filteredRows.value, 'PHASE_OF_FLIGHT', minCount.value));
-const altitudeStats = computed(() => calculateDamageRate(filteredRows.value, 'ALTITUDE_GROUP', minCount.value));
-const sizeStats = computed(() => calculateDamageRate(filteredRows.value, 'SIZE_CLEAN', minCount.value));
-const numStruckStats = computed(() => calculateDamageRate(filteredRows.value, 'NUM_STRUCK', minCount.value));
-const speciesStats = computed(() => calculateDamageRate(filteredRows.value, 'SPECIES', minCount.value));
-const matrixStats = computed(() => calculateDamageRate(filteredRows.value, matrixGroup.value, minCount.value));
-
-const modelRows = computed<MetricRow[]>(() => data.value?.metrics ?? []);
-const finalModelMetric = computed(() => data.value?.finalMetrics[0]);
-const modelNames = computed(() => Array.from(new Set(data.value?.predictions.map((row) => row.model_name) ?? [])));
-
-const topPriority = computed(() =>
-  matrixStats.value
-    .filter((row) => row.minCountPass && row.damageRate >= row.overallDamageRate)
-    .slice(0, 3)
-    .map((row) => row.category)
-    .join(', ')
+const appReady = computed(() => !loading.value && !error.value && summary.value[0] && finalMetrics.value[0] && operators.value[0]);
+const pageTitle = computed(() =>
+  activeTab.value === "analytics" ? "FAA Wildlife Strike Damage Analytics Overview" : "Wildlife Strike Damage Support System"
 );
-
-function replaceFilters(nextFilters: FilterState) {
-  Object.assign(filters, nextFilters);
-}
-
-function firstStatLabel(stats: RiskStat[], fallback: string): string {
-  const first = stats.find((row) => row.minCountPass) ?? stats[0];
-  if (!first) return fallback;
-  return `${first.category}: ${formatPercent(first.damageRate)} / avg diff ${(first.damageRate - first.overallDamageRate).toFixed(1)}%p`;
-}
+const pageSubtitle = computed(() =>
+  activeTab.value === "analytics"
+    ? "Damage-risk analysis summary from reported wildlife strike incidents"
+    : "Post-strike damage review workflow from reported incident data"
+);
 </script>
 
 <template>
-  <div v-if="loadError" class="error">{{ loadError }}</div>
-  <div v-else-if="!data" class="loading">Dashboard data loading...</div>
-  <div v-else class="app-shell">
-    <FilterPanel
-      :rows="data.strikes"
-      :filters="filters"
-      :min-count="minCount"
-      @filters-changed="replaceFilters"
-      @min-count-changed="minCount = $event"
-    />
+  <div class="app-shell">
+    <aside class="rail">
+      <div class="brand">
+        <strong>WSD</strong>
+        <span>Damage Support System</span>
+      </div>
+      <button
+        v-for="tab in tabs"
+        :key="tab.id"
+        type="button"
+        class="nav-button"
+        :class="{ active: activeTab === tab.id }"
+        @click="activeTab = tab.id"
+      >
+        <b>{{ tab.index }}</b>
+        <span>{{ tab.label }}</span>
+      </button>
+      <p class="rail-note">FAA wildlife strike reported incidents. Post-strike damage review, not live operations.</p>
+    </aside>
 
-    <main class="main">
-      <header class="page-title">
+    <main class="workspace">
+      <header class="topbar" :class="{ compact: activeTab !== 'analytics' }">
         <div>
-          <p class="eyebrow">FAA Wildlife Strike Damage Risk</p>
-          <h1>시연형 손상 위험 탐색 대시보드</h1>
-          <p>
-            충돌 발생 자체가 아니라, 이미 발생한 wildlife strike 이후 항공기 손상 가능성이 높은 조건을 탐색합니다.
-            핵심 메시지는 충돌 빈도와 손상 위험이 다를 수 있다는 점입니다.
-          </p>
+          <p class="eyebrow">FAA wildlife strike reported incident analysis</p>
+          <h1>{{ pageTitle }}</h1>
+          <p class="topbar-subtitle">{{ pageSubtitle }}</p>
         </div>
+        <div class="mode-chip">reported incidents / decision-support demo</div>
       </header>
 
-      <nav class="tabs" aria-label="Dashboard sections">
-        <button
-          v-for="page in pages"
-          :key="page.key"
-          :class="{ active: activePage === page.key }"
-          type="button"
-          @click="activePage = page.key"
-        >
-          {{ page.label }}
-        </button>
-      </nav>
+      <div v-if="loading" class="state-panel">Loading dashboard data...</div>
+      <div v-else-if="error" class="state-panel error">{{ error }}</div>
 
-      <section class="kpi-grid">
-        <KpiCard label="Total Cases" :value="compactNumber(totalCases)" note="현재 필터 기준" />
-        <KpiCard label="Damaged Cases" :value="compactNumber(damagedCases)" tone="red" />
-        <KpiCard label="Damage Rate" :value="formatPercent(damageRate, 2)" tone="orange" />
-        <KpiCard label="Target" value="Damage_Binary" note="0 = no damage, 1 = damage" tone="mint" />
-      </section>
-
-      <section v-if="activePage === 'overview'" class="grid">
-        <div class="chart-grid">
-          <div class="panel"><PlotlyChart :spec="damageDonut(filteredRows)" /></div>
-          <div class="panel"><PlotlyChart :spec="monthlyTrend(filteredRows)" /></div>
-        </div>
-        <VisualExplainer
-          mode="collision"
-          title="충돌 이후 손상 여부 분석"
-          subtitle="이 화면은 실시간 위험 예측이 아니라, 충돌 사고 데이터에서 손상 여부를 분석한 시연형 대시보드입니다."
-          :stat="`현재 손상률 ${formatPercent(damageRate, 2)}`"
+      <template v-else-if="appReady">
+        <AnalyticsOverview
+          v-if="activeTab === 'analytics'"
+          :summary="summary[0]"
+          :monthly="monthly"
+          :final-metric="finalMetrics[0]"
+          :phase-risk="phaseRisk"
+          :size-risk="sizeRisk"
+          :altitude-risk="altitudeRisk"
+          :species-risk="speciesRisk"
+          :features="features"
+          :metrics="metrics"
+          :records="records"
         />
-      </section>
-
-      <section v-else-if="activePage === 'flight'" class="grid">
-        <div class="chart-grid">
-          <div class="panel"><PlotlyChart :spec="riskBar(phaseStats, 'Damage Rate by Flight Phase')" /></div>
-          <div class="panel"><PlotlyChart :spec="riskBar(altitudeStats, 'Damage Rate by Altitude')" /></div>
-          <div class="panel"><PlotlyChart :spec="phaseAltitudeHeatmap(filteredRows, minCount)" /></div>
-        </div>
-        <div class="chart-grid">
-          <VisualExplainer
-            mode="flight"
-            title="비행단계 해석"
-            subtitle="이륙, 상승, 접근, 착륙 같은 단계별 손상률을 전체 평균과 비교해 봅니다."
-            :stat="firstStatLabel(phaseStats, '선택 가능한 비행단계가 없습니다')"
-          />
-          <VisualExplainer
-            mode="altitude"
-            title="고도구간 해석"
-            subtitle="고도 구간은 충돌 위치의 맥락을 설명하며, 특정 구간은 충돌 건수보다 손상률이 더 중요할 수 있습니다."
-            :stat="firstStatLabel(altitudeStats, '선택 가능한 고도구간이 없습니다')"
-          />
-        </div>
-      </section>
-
-      <section v-else-if="activePage === 'wildlife'" class="grid">
-        <div class="chart-grid">
-          <div class="panel"><PlotlyChart :spec="riskBar(sizeStats, 'Damage Rate by Wildlife Size', 8)" /></div>
-          <div class="panel"><PlotlyChart :spec="riskBar(numStruckStats, 'Damage Rate by Number Struck', 10)" /></div>
-          <div class="panel"><PlotlyChart :spec="riskBar(speciesStats, 'Species Risk Top 10', 10)" /></div>
-        </div>
-        <VisualExplainer
-          mode="wildlife"
-          title="동물 요인 해석"
-          subtitle="동물 크기와 충돌 개체 수는 충돌 에너지와 손상 가능성의 직관적 설명 변수입니다."
-          :stat="firstStatLabel(sizeStats, '선택 가능한 동물 크기가 없습니다')"
+        <DamageAssessment v-else-if="activeTab === 'assessment'" :scenarios="scenarios" />
+        <FlightPhaseExplorer
+          v-else-if="activeTab === 'phase'"
+          :phase-risk="phaseRisk"
+          :altitude-risk="altitudeRisk"
+          :distance-risk="distanceRisk"
         />
-      </section>
-
-      <section v-else-if="activePage === 'matrix'">
-        <div class="panel">
-          <label>
-            분석 단위
-            <select v-model="matrixGroup">
-              <option value="PHASE_OF_FLIGHT">PHASE_OF_FLIGHT</option>
-              <option value="ALTITUDE_GROUP">ALTITUDE_GROUP</option>
-              <option value="SIZE_CLEAN">SIZE_CLEAN</option>
-              <option value="SPECIES">SPECIES</option>
-              <option value="AC_MASS">AC_MASS</option>
-              <option value="FAAREGION">FAAREGION</option>
-            </select>
-          </label>
-          <PlotlyChart :spec="frequencySeverityMatrix(matrixStats)" />
-          <p>
-            현재 기준에서 우선 확인할 조건은
-            <strong>{{ topPriority || '최소 표본 기준을 통과한 고위험 조건 없음' }}</strong>
-            입니다. 충돌이 많이 발생하는 조건과 실제 손상률이 높은 조건은 다를 수 있습니다.
-          </p>
-        </div>
-      </section>
-
-      <section v-else-if="activePage === 'model'" class="grid">
-        <div class="chart-grid">
-          <div class="panel">
-            <label>
-              모델 선택
-              <select v-model="selectedModel">
-                <option v-for="model in modelNames" :key="model" :value="model">{{ model }}</option>
-              </select>
-            </label>
-            <PlotlyChart :spec="modelMetricComparison(modelRows)" />
-          </div>
-          <div class="panel"><PlotlyChart :spec="confusionMatrix(data.predictions, selectedModel)" /></div>
-          <div class="panel"><PlotlyChart :spec="featureImportance(data.featureImportance)" /></div>
-        </div>
-        <VisualExplainer
-          mode="model"
-          title="False Negative 중심 해석"
-          subtitle="실제로는 손상이 있었지만 모델이 비손상으로 예측한 경우입니다. 항공안전 관점에서는 Accuracy보다 Recall과 F1-score를 함께 봐야 합니다."
-          :stat="finalModelMetric ? `Final recall ${formatPercent(finalModelMetric.recall * 100, 1)} / F1 ${finalModelMetric.f1.toFixed(3)}` : ''"
+        <RiskFactorIntelligence
+          v-else-if="activeTab === 'factors'"
+          :size-risk="sizeRisk"
+          :species-risk="speciesRisk"
+          :altitude-risk="altitudeRisk"
+          :num-risk="numRisk"
+          :distance-risk="distanceRisk"
+          :features="features"
         />
-      </section>
-
-      <section v-else class="insight-grid">
-        <article class="insight-card">
-          <p class="eyebrow">Insight 01</p>
-          <h2>Frequency does not equal risk</h2>
-          <p>충돌이 많이 발생하는 조건과 실제 항공기 손상률이 높은 조건은 다를 수 있습니다.</p>
-        </article>
-        <article class="insight-card">
-          <p class="eyebrow">Insight 02</p>
-          <h2>Risk comes from combinations</h2>
-          <p>비행단계, 고도구간, 동물 크기, 충돌 개체 수의 조합이 손상 위험 해석에 중요합니다.</p>
-        </article>
-        <article class="insight-card">
-          <p class="eyebrow">Insight 03</p>
-          <h2>Screening, not final judgment</h2>
-          <p>본 모델은 손상 여부를 확정하는 도구가 아니라, 손상 가능성이 높은 사고를 우선 선별하는 스크리닝 도구입니다.</p>
-        </article>
-      </section>
+        <OperatorApplicationDemo
+          v-else
+          :operator="operators[0]"
+          :incidents="incidents"
+          :operator-phase="phaseRisk"
+        />
+      </template>
     </main>
   </div>
 </template>

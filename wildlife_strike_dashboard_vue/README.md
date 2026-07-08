@@ -1,23 +1,23 @@
-# FAA Wildlife Strike Damage Risk Dashboard
+# Wildlife Strike Damage Risk Console
 
-Vue 3 + TypeScript SPA for exploring the FAA wildlife strike aircraft damage analysis outputs.
+Vue dashboard for presenting FAA wildlife strike aircraft damage risk results as an aviation-style analysis console.
 
 ## Run
 
 ```powershell
-npm.cmd install
-npm.cmd run dev
+npm install
+npm run dev
 ```
 
-Open the local Vite URL shown in the terminal.
+## Build
 
-## Data
+```powershell
+npm run build
+```
 
-The app reads static CSV files from `public/data`. These files were copied from:
+## Interpretation Guardrails
 
-- `../FAA_Wildlife_Damage_Final/01_data/processed_modeling_data.csv`
-- `../FAA_Wildlife_Damage_Final/04_metrics/*.csv`
-- `../FAA_Wildlife_Damage_Final/03_predictions/*.csv`
-- `../FAA_Wildlife_Damage_Final/06_tables/feature_importance.csv`
-
-If the modeling pipeline is rerun, copy the latest CSV files into `public/data` before building the SPA.
+- This dashboard reviews aircraft damage likelihood within reported wildlife strike incidents.
+- It does not predict wildlife strike occurrence.
+- The operator map uses the highest reported operator as a demonstration case.
+- The operator map is not an airline safety ranking or true operational exposure estimate.
