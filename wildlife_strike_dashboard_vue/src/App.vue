@@ -3,29 +3,31 @@ import { computed, onMounted, ref } from "vue";
 import AnalyticsOverview from "./pages/AnalyticsOverview.vue";
 import DamageAssessment from "./pages/DamageAssessment.vue";
 import FlightPhaseExplorer from "./pages/FlightPhaseExplorer.vue";
-import OperatorApplicationDemo from "./pages/OperatorApplicationDemo.vue";
+import McoAirportConsole from "./pages/McoAirportConsole.vue";
 import RiskFactorIntelligence from "./pages/RiskFactorIntelligence.vue";
 import type {
+  AirportConsoleSummaryRow,
   AssessmentScenarioRow,
   FeatureRow,
   IncidentRow,
   MetricRow,
+  McoMonthlyStatusRow,
+  McoSpeciesRow,
   MonthlyTrendRow,
-  OperatorRow,
   RiskRow,
   StrikeRecord,
   SummaryRow,
 } from "./types";
 import { loadCsv } from "./utils/csv";
 
-type TabId = "analytics" | "assessment" | "phase" | "factors" | "operator";
+type TabId = "analytics" | "assessment" | "phase" | "factors" | "mco";
 
 const tabs: Array<{ id: TabId; label: string; index: string }> = [
   { id: "analytics", label: "Analytics Overview", index: "0" },
   { id: "assessment", label: "Post-Strike Assessment", index: "1" },
   { id: "phase", label: "Flight Phase Risk", index: "2" },
   { id: "factors", label: "Wildlife & Aircraft Factors", index: "3" },
-  { id: "operator", label: "Operator / Airport Demo", index: "4" },
+  { id: "mco", label: "MCO Airport Console", index: "4" },
 ];
 
 const activeTab = ref<TabId>("analytics");
@@ -44,8 +46,11 @@ const distanceRisk = ref<RiskRow[]>([]);
 const metrics = ref<MetricRow[]>([]);
 const finalMetrics = ref<MetricRow[]>([]);
 const features = ref<FeatureRow[]>([]);
-const operators = ref<OperatorRow[]>([]);
-const incidents = ref<IncidentRow[]>([]);
+const mcoSummary = ref<AirportConsoleSummaryRow[]>([]);
+const mcoIncidents = ref<IncidentRow[]>([]);
+const mcoMonthly = ref<MonthlyTrendRow[]>([]);
+const mcoMonthlyStatus = ref<McoMonthlyStatusRow[]>([]);
+const mcoSpecies = ref<McoSpeciesRow[]>([]);
 const records = ref<StrikeRecord[]>([]);
 
 onMounted(async () => {
@@ -63,8 +68,11 @@ onMounted(async () => {
       metricRows,
       finalMetricRows,
       featureRows,
-      operatorRows,
-      incidentRows,
+      mcoSummaryRows,
+      mcoIncidentRows,
+      mcoMonthlyRows,
+      mcoMonthlyStatusRows,
+      mcoSpeciesRows,
       recordRows,
     ] = await Promise.all([
       loadCsv<SummaryRow>("/data/dashboard_summary.csv"),
@@ -79,8 +87,11 @@ onMounted(async () => {
       loadCsv<MetricRow>("/data/metrics_table.csv"),
       loadCsv<MetricRow>("/data/final_model_metrics.csv"),
       loadCsv<FeatureRow>("/data/feature_importance.csv"),
-      loadCsv<OperatorRow>("/data/operator_summary_top30.csv"),
-      loadCsv<IncidentRow>("/data/operator_incident_queue.csv"),
+      loadCsv<AirportConsoleSummaryRow>("/data/mco_airport_summary.csv"),
+      loadCsv<IncidentRow>("/data/mco_incident_queue.csv"),
+      loadCsv<MonthlyTrendRow>("/data/mco_monthly_trend.csv"),
+      loadCsv<McoMonthlyStatusRow>("/data/mco_monthly_status_trend.csv"),
+      loadCsv<McoSpeciesRow>("/data/mco_species_summary.csv"),
       loadCsv<StrikeRecord>("/data/processed_modeling_data.csv"),
     ]);
 
@@ -96,8 +107,11 @@ onMounted(async () => {
     metrics.value = metricRows;
     finalMetrics.value = finalMetricRows;
     features.value = featureRows;
-    operators.value = operatorRows;
-    incidents.value = incidentRows;
+    mcoSummary.value = mcoSummaryRows;
+    mcoIncidents.value = mcoIncidentRows;
+    mcoMonthly.value = mcoMonthlyRows;
+    mcoMonthlyStatus.value = mcoMonthlyStatusRows;
+    mcoSpecies.value = mcoSpeciesRows;
     records.value = recordRows;
   } catch (err) {
     error.value = err instanceof Error ? err.message : "Unable to load dashboard data";
@@ -106,19 +120,27 @@ onMounted(async () => {
   }
 });
 
-const appReady = computed(() => !loading.value && !error.value && summary.value[0] && finalMetrics.value[0] && operators.value[0]);
+const appReady = computed(() =>
+  !loading.value && !error.value && summary.value[0] && finalMetrics.value[0] && mcoSummary.value[0]
+);
 const pageTitle = computed(() =>
-  activeTab.value === "analytics" ? "FAA Wildlife Strike Damage Analytics Overview" : "Wildlife Strike Damage Support System"
+  activeTab.value === "analytics"
+    ? "FAA Wildlife Strike Damage Analytics Overview"
+    : activeTab.value === "mco"
+      ? "MCO Wildlife Strike Airport Console"
+      : "Wildlife Strike Damage Support System"
 );
 const pageSubtitle = computed(() =>
   activeTab.value === "analytics"
     ? "Damage-risk analysis summary from reported wildlife strike incidents"
-    : "Post-strike damage review workflow from reported incident data"
+    : activeTab.value === "mco"
+      ? "Cropped terminal-cluster scenario view using Orlando International Airport results"
+      : "Post-strike damage review workflow from reported incident data"
 );
 </script>
 
 <template>
-  <div class="app-shell">
+  <div class="app-shell" :class="{ 'mco-fullscreen-shell': activeTab === 'mco' }">
     <aside class="rail">
       <div class="brand">
         <strong>WSD</strong>
@@ -139,7 +161,7 @@ const pageSubtitle = computed(() =>
     </aside>
 
     <main class="workspace">
-      <header class="topbar" :class="{ compact: activeTab !== 'analytics' }">
+      <header v-if="activeTab !== 'mco'" class="topbar" :class="{ compact: activeTab !== 'analytics' }">
         <div>
           <p class="eyebrow">FAA wildlife strike reported incident analysis</p>
           <h1>{{ pageTitle }}</h1>
@@ -181,11 +203,12 @@ const pageSubtitle = computed(() =>
           :distance-risk="distanceRisk"
           :features="features"
         />
-        <OperatorApplicationDemo
+        <McoAirportConsole
           v-else
-          :operator="operators[0]"
-          :incidents="incidents"
-          :operator-phase="phaseRisk"
+          :summary="mcoSummary[0]"
+          :incidents="mcoIncidents"
+          :monthly-status="mcoMonthlyStatus"
+          :species="mcoSpecies"
         />
       </template>
     </main>

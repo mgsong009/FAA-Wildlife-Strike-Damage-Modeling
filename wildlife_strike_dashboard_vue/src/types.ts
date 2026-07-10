@@ -59,6 +59,20 @@ export interface AirportProfileRow {
   common_species: string;
 }
 
+export interface AirportConsoleSummaryRow {
+  AIRPORT_ID: string;
+  AIRPORT: string;
+  total: number;
+  damaged: number;
+  damage_rate: number;
+  total_rank: number;
+  damaged_rank: number;
+  top_phase: string;
+  top_phase_count: number;
+  peak_months: string;
+  peak_month_count: number;
+}
+
 export interface ConfusionRow {
   rowLabel: string;
   pred_0: number;
@@ -100,6 +114,12 @@ export interface IncidentRow {
   LATITUDE: number;
   LONGITUDE: number;
   INCIDENT_MONTH: number;
+  display_time?: string;
+  status?: "DAMAGED" | "POSSIBLE" | "NONE";
+  surface_location?: string;
+  impact_position?: string;
+  notes?: string;
+  review_score_5?: number;
   PHASE_OF_FLIGHT: string;
   ALTITUDE_GROUP: string;
   DISTANCE_GROUP: string;
@@ -112,6 +132,21 @@ export interface IncidentRow {
   size_rate: number;
   altitude_rate: number;
   scenario_risk: number;
+}
+
+export interface McoMonthlyStatusRow {
+  INCIDENT_MONTH: number;
+  damaged_count: number;
+  possible_count: number;
+  none_count: number;
+  total_count: number;
+}
+
+export interface McoSpeciesRow {
+  species: string;
+  count: number;
+  share: number;
+  display_color: string;
 }
 
 export interface StrikeRecord {

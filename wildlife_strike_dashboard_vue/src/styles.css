@@ -121,6 +121,77 @@ dt {
   padding: 20px;
 }
 
+.app-shell.mco-fullscreen-shell {
+  grid-template-columns: 96px 1fr;
+  height: 100vh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mco-fullscreen-shell .rail {
+  padding: 14px 10px;
+}
+
+.mco-fullscreen-shell .brand {
+  display: grid;
+  height: 92px;
+  margin-bottom: 14px;
+  padding: 0;
+  place-items: center;
+}
+
+.mco-fullscreen-shell .brand strong {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 2px solid rgba(66, 214, 255, 0.75);
+  border-radius: 999px;
+  color: transparent;
+  font-size: 0;
+}
+
+.mco-fullscreen-shell .brand strong::after {
+  content: "W";
+  color: var(--cyan);
+  font-size: 1rem;
+}
+
+.mco-fullscreen-shell .brand span,
+.mco-fullscreen-shell .nav-button span,
+.mco-fullscreen-shell .rail-note {
+  display: none;
+}
+
+.mco-fullscreen-shell .nav-button {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  height: 64px;
+  margin-bottom: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+.mco-fullscreen-shell .nav-button b {
+  width: 34px;
+  height: 34px;
+  border-color: transparent;
+  color: #9fb7c9;
+  font-size: 0.9rem;
+}
+
+.mco-fullscreen-shell .nav-button.active b {
+  border-color: rgba(66, 214, 255, 0.6);
+  color: #fff;
+}
+
+.mco-fullscreen-shell .workspace {
+  height: 100vh;
+  min-width: 0;
+  overflow: hidden;
+  padding: 14px;
+}
+
 .topbar,
 .panel-title {
   display: flex;
@@ -1309,6 +1380,1491 @@ svg text.callout-sub {
 
 .operator-phase-strip b {
   color: #edf7ff;
+}
+
+.mco-console-page {
+  display: grid;
+  gap: 12px;
+}
+
+.mco-console-top {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.35fr) repeat(5, minmax(132px, 1fr));
+  gap: 8px;
+}
+
+.mco-kpi {
+  min-height: 92px;
+  padding: 12px;
+  border: 1px solid rgba(137, 172, 201, 0.18);
+  background: rgba(18, 34, 50, 0.9);
+}
+
+.mco-kpi.primary {
+  background:
+    linear-gradient(135deg, rgba(66, 214, 255, 0.13), rgba(84, 209, 154, 0.055)),
+    rgba(18, 34, 50, 0.94);
+}
+
+.mco-kpi p {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.mco-kpi h2,
+.mco-kpi strong {
+  display: block;
+  margin: 0 0 6px;
+  color: #edf7ff;
+  font-size: clamp(1.2rem, 1.4vw, 1.8rem);
+  line-height: 1.05;
+}
+
+.mco-kpi span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.mco-console-grid {
+  display: grid;
+  grid-template-columns: 300px minmax(520px, 1fr) 320px;
+  gap: 12px;
+  align-items: start;
+}
+
+.mco-case-panel {
+  max-height: 660px;
+  overflow: auto;
+}
+
+.mco-queue-table .queue-head,
+.mco-queue-table .queue-row {
+  grid-template-columns: 72px minmax(74px, 1fr) 46px 62px;
+}
+
+.mco-map-panel {
+  min-width: 0;
+}
+
+.mco-cluster-map {
+  width: 100%;
+  min-height: 520px;
+  background: #071018;
+  border: 1px solid rgba(137, 172, 201, 0.14);
+}
+
+.mco-water {
+  fill: rgba(66, 214, 255, 0.08);
+  stroke: rgba(66, 214, 255, 0.16);
+}
+
+.mco-green {
+  fill: rgba(84, 209, 154, 0.08);
+  stroke: rgba(84, 209, 154, 0.14);
+}
+
+.mco-service-road {
+  fill: none;
+  stroke: rgba(237, 247, 255, 0.14);
+  stroke-width: 18;
+  stroke-linecap: round;
+}
+
+.mco-service-road.muted {
+  stroke-width: 12;
+  stroke: rgba(237, 247, 255, 0.08);
+}
+
+.mco-taxiway {
+  fill: none;
+  stroke: url(#mcoTaxi);
+  stroke-width: 28;
+  stroke-linecap: round;
+}
+
+.mco-guideway {
+  fill: none;
+  stroke: rgba(237, 247, 255, 0.36);
+  stroke-dasharray: 8 8;
+  stroke-width: 5;
+}
+
+.mco-terminal,
+.mco-airside path {
+  fill: #263d50;
+  stroke: rgba(237, 247, 255, 0.28);
+  stroke-width: 2;
+}
+
+.mco-terminal.spine {
+  fill: #314d62;
+}
+
+.mco-terminal-core {
+  fill: rgba(66, 214, 255, 0.18);
+  stroke: rgba(66, 214, 255, 0.45);
+}
+
+.mco-gates circle {
+  fill: rgba(243, 211, 74, 0.72);
+}
+
+.mco-approach {
+  fill: none;
+  stroke: rgba(66, 214, 255, 0.48);
+  stroke-dasharray: 9 10;
+  stroke-width: 2.4;
+}
+
+.mco-approach.amber {
+  stroke: rgba(243, 211, 74, 0.5);
+}
+
+.mco-map-label {
+  fill: #dcefff;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.mco-map-label.strong {
+  fill: #fff;
+  font-size: 15px;
+}
+
+.mco-map-label.muted {
+  fill: var(--muted);
+  font-size: 12px;
+}
+
+.mco-incident-marker {
+  cursor: pointer;
+  stroke: #061019;
+  stroke-width: 2.4;
+}
+
+.mco-incident-marker.selected {
+  stroke: #fff;
+  stroke-width: 4;
+}
+
+.mco-marker-pulse {
+  fill: none;
+  stroke: rgba(237, 247, 255, 0.7);
+  stroke-width: 2;
+}
+
+.mco-callout path {
+  fill: none;
+  stroke: rgba(237, 247, 255, 0.62);
+  stroke-dasharray: 6 6;
+  stroke-width: 2;
+}
+
+.mco-callout rect {
+  fill: rgba(8, 19, 29, 0.94);
+  stroke: rgba(66, 214, 255, 0.58);
+}
+
+.mco-callout text {
+  fill: #edf7ff;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.mco-map-legend text {
+  fill: var(--muted);
+  font-size: 12px;
+}
+
+.mco-readout-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.mco-readout-row section {
+  min-height: 96px;
+  padding: 11px 12px;
+  border: 1px solid rgba(137, 172, 201, 0.17);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.mco-readout-row h3 {
+  margin: 4px 0 7px;
+  color: #edf7ff;
+  font-size: 0.94rem;
+  line-height: 1.24;
+}
+
+.mco-readout-row span {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.mco-detail-panel {
+  max-height: 660px;
+}
+
+.mco-timeline-panel {
+  padding-bottom: 18px;
+}
+
+.mco-month-bars {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(36px, 1fr));
+  gap: 10px;
+  align-items: end;
+  min-height: 158px;
+  padding-top: 12px;
+}
+
+.mco-month {
+  display: grid;
+  gap: 7px;
+  justify-items: center;
+}
+
+.mco-month span,
+.mco-month small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.mco-month div {
+  position: relative;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  width: 100%;
+  height: 104px;
+  border-bottom: 1px solid rgba(137, 172, 201, 0.2);
+}
+
+.mco-month b,
+.mco-month i {
+  display: block;
+  width: 16px;
+  border-radius: 3px 3px 0 0;
+}
+
+.mco-month b {
+  background: rgba(66, 214, 255, 0.58);
+}
+
+.mco-month i {
+  position: absolute;
+  right: calc(50% - 17px);
+  bottom: 0;
+  width: 8px;
+  background: rgba(255, 92, 92, 0.74);
+}
+
+.mco-month.peak b {
+  background: rgba(243, 211, 74, 0.78);
+}
+
+.mco-console-page.redesigned {
+  --mco-bg: #07121c;
+  --mco-card: rgba(16, 31, 45, 0.94);
+  --mco-card-strong: rgba(20, 40, 56, 0.98);
+  --mco-line: rgba(105, 148, 184, 0.28);
+  --mco-blue: #1f8fff;
+  --mco-cyan: #47d8ff;
+  --mco-amber: #ff9f1c;
+  --mco-red: #ff5151;
+  --mco-green: #64c75b;
+  display: grid;
+  grid-template-rows: 126px minmax(0, 1fr) 188px;
+  gap: 8px;
+  height: calc(100vh - 28px);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mco-console-page.redesigned .mco-kpi-strip {
+  display: grid;
+  grid-template-columns: 1.16fr 1.08fr 1.08fr 1.08fr 1fr 0.96fr;
+  gap: 10px;
+}
+
+.mco-kpi-module {
+  position: relative;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  align-items: center;
+  height: 100%;
+  min-height: 0;
+  gap: 14px;
+  padding: 15px 18px;
+  overflow: hidden;
+  border: 1px solid var(--mco-line);
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 24px 28px, rgba(71, 216, 255, 0.13), transparent 34px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012)),
+    var(--mco-card);
+}
+
+.mco-kpi-module.identity {
+  grid-template-columns: 42px 1fr;
+  place-items: initial;
+  text-align: left;
+}
+
+.mco-kpi-module.identity .mco-kpi-icon {
+  width: 36px;
+  height: 36px;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.mco-kpi-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid rgba(71, 216, 255, 0.32);
+  border-radius: 5px;
+  color: var(--mco-cyan);
+  background: rgba(71, 216, 255, 0.075);
+}
+
+.mco-kpi-icon svg {
+  width: 27px;
+  height: 27px;
+}
+
+.mco-kpi-icon svg path,
+.mco-kpi-icon svg circle,
+.mco-kpi-icon svg rect {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.mco-kpi-copy {
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.mco-kpi-module p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
+  color: #dcefff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.mco-kpi-module p b {
+  color: #9fb7c9;
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.mco-kpi-module strong {
+  display: block;
+  margin: 0;
+  color: #fff;
+  font-size: 1.82rem;
+  line-height: 1.26;
+  white-space: nowrap;
+}
+
+.mco-kpi-module small {
+  display: block;
+  color: #aac3d6;
+  font-size: 0.76rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.mco-kpi-module small b {
+  margin-left: 6px;
+  font-weight: 900;
+}
+
+.mco-kpi-module .up,
+.mco-kpi-module .down {
+  color: var(--mco-green);
+}
+
+.mco-kpi-module .warn {
+  color: var(--mco-amber);
+}
+
+.mco-kpi-module.tone-amber .mco-kpi-icon {
+  color: var(--mco-amber);
+  stroke: var(--mco-amber);
+}
+
+.mco-kpi-module.tone-green .mco-kpi-icon {
+  color: var(--mco-green);
+  stroke: var(--mco-green);
+}
+
+.mco-kpi-module.filter button {
+  width: 100%;
+  height: 36px;
+  margin-top: 5px;
+  padding: 0 10px;
+  border: 1px solid rgba(137, 172, 201, 0.24);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #edf7ff;
+  cursor: pointer;
+}
+
+.mco-kpi-module.filter {
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 10px;
+  padding: 14px;
+}
+
+.mco-kpi-module.filter .mco-kpi-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.mco-kpi-module.filter .mco-kpi-icon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.mco-kpi-module.filter strong {
+  font-size: 0.64rem;
+  line-height: 1.12;
+  white-space: nowrap;
+}
+
+.mco-kpi-module.filter button span {
+  display: inline-block;
+  position: relative;
+  width: 14px;
+  height: 2px;
+  margin-left: 8px;
+  border: 0;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+.mco-kpi-module.filter button span::before,
+.mco-kpi-module.filter button span::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+}
+
+.mco-kpi-module.filter button span::before {
+  top: -5px;
+  width: 18px;
+}
+
+.mco-kpi-module.filter button span::after {
+  top: 5px;
+  width: 8px;
+}
+
+.mco-ops-grid {
+  display: grid;
+  grid-template-columns: 250px minmax(720px, 1fr) 300px;
+  gap: 8px;
+  align-items: stretch;
+  height: auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mco-console-card {
+  border: 1px solid var(--mco-line);
+  border-radius: 6px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.012)),
+    var(--mco-card);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.mco-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px 8px;
+}
+
+.mco-card-title h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 0.96rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.mco-card-title span,
+.mco-card-title button {
+  color: #aac3d6;
+  font-size: 0.76rem;
+}
+
+.mco-card-title > span {
+  display: grid;
+  min-width: 28px;
+  height: 22px;
+  place-items: center;
+  border-radius: 4px;
+  background: rgba(31, 143, 255, 0.24);
+  color: #dff4ff;
+}
+
+.mco-card-title button {
+  padding: 7px 10px;
+  border: 1px solid rgba(71, 216, 255, 0.35);
+  border-radius: 4px;
+  background: rgba(31, 143, 255, 0.1);
+  color: #edf7ff;
+}
+
+.mco-incident-queue {
+  display: grid;
+  grid-template-rows: 44px 46px minmax(0, 1fr) 30px;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mco-incident-queue .mco-card-title {
+  padding: 12px 14px 6px;
+}
+
+.mco-sort-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 38px;
+  gap: 8px;
+  padding: 0 12px 8px;
+}
+
+.mco-sort-button,
+.mco-filter-button {
+  height: 36px;
+  border: 1px solid rgba(137, 172, 201, 0.2);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.045);
+  color: #edf7ff;
+}
+
+.mco-sort-button {
+  width: 100%;
+  padding: 0 10px;
+  text-align: left;
+}
+
+.mco-sort-button span {
+  float: right;
+}
+
+.mco-filter-button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.mco-filter-button span {
+  display: block;
+  width: 15px;
+  height: 6px;
+  border-top: 2px solid #a9c4d8;
+  border-bottom: 2px solid #a9c4d8;
+}
+
+.mco-filter-button span + span {
+  width: 10px;
+  margin-top: -13px;
+  margin-left: 6px;
+  border-bottom: 0;
+}
+
+.mco-queue-list {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  max-height: none;
+  height: 100%;
+  padding: 0 10px;
+  overflow: auto;
+}
+
+.mco-queue-card {
+  display: grid;
+  grid-template-rows: 17px 17px 17px 16px;
+  gap: 2px;
+  width: 100%;
+  min-height: 84px;
+  padding: 8px 10px;
+  border: 1px solid rgba(137, 172, 201, 0.18);
+  border-radius: 5px;
+  background: rgba(5, 16, 25, 0.36);
+  color: #edf7ff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mco-queue-card.active,
+.mco-queue-card:hover,
+.mco-queue-card:focus-visible {
+  border-color: rgba(31, 143, 255, 0.95);
+  background: rgba(31, 143, 255, 0.12);
+  outline: none;
+}
+
+.mco-queue-time {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #d8ebff;
+  font-size: 0.78rem;
+  line-height: 18px;
+}
+
+.mco-queue-time i {
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--mco-green);
+}
+
+.mco-queue-card.status-damaged .mco-queue-time i {
+  background: var(--mco-red);
+}
+
+.mco-queue-card.status-possible .mco-queue-time i {
+  background: var(--mco-amber);
+}
+
+.mco-queue-card.active .mco-queue-time i {
+  background: var(--mco-blue);
+}
+
+.mco-queue-time b {
+  margin-left: auto;
+  padding: 1px 7px;
+  border: 1px solid rgba(255, 159, 28, 0.5);
+  border-radius: 4px;
+  color: var(--mco-amber);
+  font-size: 0.62rem;
+  line-height: 15px;
+}
+
+.mco-queue-card strong {
+  overflow: hidden;
+  color: #dcefff;
+  font-size: 0.82rem;
+  line-height: 17px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mco-queue-card small {
+  overflow: hidden;
+  color: #a8c3d7;
+  font-size: 0.72rem;
+  line-height: 17px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mco-queue-card small span {
+  color: rgba(168, 195, 215, 0.62);
+}
+
+.mco-queue-card em,
+.status-badge {
+  width: fit-content;
+  max-width: 100%;
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-style: normal;
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 16px;
+}
+
+.mco-queue-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 0;
+  padding: 0 14px 10px;
+  border: 0;
+  background: transparent;
+  color: #9fb7c9;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.mco-queue-footer span {
+  color: #dcefff;
+}
+
+.mco-queue-card.status-damaged em,
+.status-badge.status-damaged {
+  background: rgba(255, 81, 81, 0.18);
+  color: #ff7777;
+}
+
+.mco-queue-card.status-possible em,
+.status-badge.status-possible {
+  background: rgba(255, 159, 28, 0.18);
+  color: #ffbe5c;
+}
+
+.mco-queue-card.status-none em,
+.status-badge.status-none {
+  background: rgba(100, 199, 91, 0.18);
+  color: #80df78;
+}
+
+.mco-map-shell {
+  display: block;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mco-map-shell .map-title {
+  min-height: 58px;
+  padding: 11px 13px 9px;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(137, 172, 201, 0.16);
+}
+
+.mco-map-shell .map-title > div {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+}
+
+.mco-map-shell .map-title h2 {
+  font-size: 0.92rem;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.mco-map-status-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin-top: 0;
+  color: #c7dced;
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.mco-map-status-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.mco-map-status-legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  box-shadow: 0 0 9px currentColor;
+}
+
+.mco-map-status-legend .status-damaged {
+  background: var(--mco-red);
+  color: var(--mco-red);
+}
+
+.mco-map-status-legend .status-possible {
+  background: var(--mco-amber);
+  color: var(--mco-amber);
+}
+
+.mco-map-status-legend .status-none {
+  background: var(--mco-green);
+  color: var(--mco-green);
+}
+
+.mco-map-status-legend .status-selected {
+  background: transparent;
+  border: 2px solid var(--mco-blue);
+  color: var(--mco-blue);
+}
+
+.mco-cluster-map.dense,
+.mco-cluster-map.reference-panel {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  background: #061019;
+}
+
+.mco-cluster-map.reference-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.mco-cluster-map.reference-panel img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  object-position: center;
+}
+
+.mco-reference-hotspot {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.mco-reference-hotspot::before {
+  position: absolute;
+  inset: 5px;
+  content: "";
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.mco-reference-hotspot.status-damaged::before {
+  background: var(--mco-red);
+}
+
+.mco-reference-hotspot.status-possible::before {
+  background: var(--mco-amber);
+}
+
+.mco-reference-hotspot.status-none::before {
+  background: var(--mco-green);
+}
+
+.mco-reference-hotspot:hover::before,
+.mco-reference-hotspot:focus-visible::before {
+  opacity: 0.82;
+  transform: scale(1.1);
+  box-shadow: 0 0 0 3px rgba(223, 247, 255, 0.45), 0 0 14px currentColor;
+}
+
+.mco-reference-hotspot.selected {
+  box-shadow: 0 0 0 3px var(--mco-blue), 0 0 0 8px rgba(31, 143, 255, 0.32), 0 0 18px rgba(31, 143, 255, 0.88);
+}
+
+.mco-reference-hotspot span {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  min-width: 88px;
+  padding: 5px 8px;
+  border: 1px solid rgba(31, 143, 255, 0.62);
+  border-radius: 4px;
+  background: rgba(5, 16, 25, 0.92);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 900;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(4px);
+  transition: opacity 160ms ease, transform 160ms ease;
+  white-space: nowrap;
+}
+
+.mco-reference-hotspot:hover span,
+.mco-reference-hotspot:focus-visible span {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.mco-runway-layer .runway {
+  fill: none;
+  stroke: rgba(92, 114, 125, 0.72);
+  stroke-linecap: round;
+}
+
+.mco-runway-layer .runway-main {
+  stroke-width: 22;
+}
+
+.mco-runway-layer .runway-cross {
+  stroke-width: 15;
+}
+
+.mco-runway-layer .runway-center,
+.mco-runway-layer .flight-track {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.mco-runway-layer .runway-center {
+  stroke: rgba(222, 238, 246, 0.68);
+  stroke-width: 2;
+  stroke-dasharray: 10 10;
+}
+
+.mco-runway-layer .flight-track {
+  stroke: rgba(222, 238, 246, 0.54);
+  stroke-width: 2;
+  stroke-dasharray: 5 8;
+}
+
+.mco-runway-layer .flight-track.active {
+  stroke: rgba(255, 255, 255, 0.88);
+}
+
+.mco-runway-layer .route-node {
+  fill: #f4f7fb;
+  stroke: rgba(255, 159, 28, 0.9);
+  stroke-width: 2;
+}
+
+.mco-runway-label {
+  fill: rgba(224, 240, 252, 0.82);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.mco-surface-grid path {
+  fill: none;
+  stroke: rgba(126, 162, 189, 0.08);
+  stroke-width: 1.2;
+}
+
+.mco-land-water .water {
+  fill: rgba(0, 114, 164, 0.32);
+}
+
+.mco-land-water .green {
+  fill: rgba(72, 126, 57, 0.32);
+}
+
+.mco-roadmesh path {
+  fill: none;
+  stroke: rgba(79, 96, 105, 0.52);
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+.mco-roadmesh path:nth-child(even) {
+  stroke-width: 7;
+  stroke: rgba(79, 96, 105, 0.38);
+}
+
+.mco-taxiway-dots path {
+  fill: none;
+  stroke: rgba(224, 159, 42, 0.68);
+  stroke-width: 1.5;
+  stroke-dasharray: 2 7;
+  stroke-linecap: round;
+}
+
+.mco-people-mover path {
+  fill: none;
+  stroke: rgba(71, 216, 255, 0.72);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.mco-people-mover .walkway {
+  stroke-width: 2.4;
+  stroke-dasharray: 8 6;
+  stroke: rgba(71, 216, 255, 0.58);
+}
+
+.mco-people-mover .station {
+  fill: rgba(155, 222, 242, 0.72);
+  stroke: rgba(220, 248, 255, 0.7);
+  stroke-width: 1.4;
+}
+
+.mco-terminal-complex .main-terminal-shadow {
+  fill: rgba(2, 8, 13, 0.4);
+}
+
+.mco-terminal-complex .main-terminal {
+  fill: #33485a;
+  stroke: rgba(220, 239, 255, 0.42);
+  stroke-width: 2;
+}
+
+.mco-terminal-complex .main-terminal-core {
+  fill: rgba(220, 239, 255, 0.08);
+  stroke: rgba(220, 239, 255, 0.24);
+}
+
+.mco-terminal-complex .connector {
+  fill: none;
+  stroke: rgba(71, 216, 255, 0.7);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.mco-terminal-complex .terminal-icon {
+  fill: rgba(223, 247, 255, 0.78);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.mco-terminal-title {
+  fill: #fff;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.mco-elev,
+.mco-gate-label {
+  fill: #d4e9f8;
+  font-size: 11px;
+}
+
+.mco-airside-clusters .airside {
+  fill: rgba(70, 86, 98, 0.9);
+  stroke: rgba(220, 239, 255, 0.28);
+  stroke-width: 2;
+}
+
+.mco-airside-clusters .airside-plan {
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.32));
+}
+
+.mco-airside-clusters .finger {
+  fill: none;
+  stroke: rgba(212, 227, 236, 0.42);
+  stroke-width: 4.6;
+  stroke-linecap: round;
+}
+
+.mco-airside-title {
+  fill: #fff;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.mco-gates circle {
+  fill: rgba(243, 211, 74, 0.78);
+}
+
+.mco-aircraft path {
+  fill: rgba(212, 227, 236, 0.86);
+  stroke: rgba(4, 10, 16, 0.45);
+  stroke-width: 0.8;
+}
+
+.mco-taxi-labels rect {
+  fill: rgba(31, 143, 255, 0.22);
+  stroke: rgba(71, 216, 255, 0.5);
+}
+
+.mco-taxi-labels text {
+  fill: #dff7ff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.mco-marker {
+  cursor: pointer;
+  stroke: #071018;
+  stroke-width: 3;
+}
+
+.mco-marker.status-damaged {
+  fill: var(--mco-red);
+}
+
+.mco-marker.status-possible {
+  fill: var(--mco-amber);
+}
+
+.mco-marker.status-none {
+  fill: var(--mco-green);
+}
+
+.mco-marker.selected {
+  filter: url(#markerGlow);
+  fill: var(--mco-blue);
+  stroke: #dff7ff;
+  stroke-width: 4;
+}
+
+.mco-selected-ring {
+  fill: none;
+  stroke: var(--mco-blue);
+  stroke-width: 4;
+  opacity: 0.95;
+}
+
+.mco-map-callout path {
+  fill: none;
+  stroke: rgba(220, 239, 255, 0.58);
+  stroke-dasharray: 6 6;
+  stroke-width: 2;
+}
+
+.mco-map-callout rect {
+  fill: rgba(5, 16, 25, 0.94);
+  stroke: rgba(31, 143, 255, 0.75);
+}
+
+.mco-map-callout text {
+  fill: #fff;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.mco-map-callout .muted {
+  fill: #b8d0e1;
+  font-size: 11px;
+}
+
+.mco-map-controls rect,
+.mco-map-legend rect {
+  fill: rgba(6, 16, 25, 0.82);
+  stroke: rgba(137, 172, 201, 0.34);
+}
+
+.mco-map-controls text,
+.mco-map-legend text {
+  fill: #dcefff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.mco-map-legend line {
+  stroke-width: 3;
+}
+
+.mco-map-legend .people {
+  stroke: var(--mco-cyan);
+}
+
+.mco-map-legend .walkway {
+  stroke: var(--mco-cyan);
+  stroke-dasharray: 6 6;
+}
+
+.mco-map-legend .taxi {
+  stroke: var(--mco-amber);
+  stroke-dasharray: 5 6;
+}
+
+.mco-incident-detail {
+  min-height: 0;
+  height: 100%;
+  padding: 13px 14px 14px;
+  overflow: hidden;
+}
+
+.mco-detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.mco-detail-header p {
+  margin: 0 0 8px;
+  color: #dcefff;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.mco-detail-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.mco-detail-header h2 i {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+}
+
+.mco-detail-header h2 i.status-damaged {
+  background: var(--mco-red);
+}
+
+.mco-detail-header h2 i.status-possible {
+  background: var(--mco-amber);
+}
+
+.mco-detail-header h2 i.status-none {
+  background: var(--mco-green);
+}
+
+.mco-detail-header > span {
+  padding: 3px 8px;
+  border: 1px solid rgba(255, 159, 28, 0.48);
+  border-radius: 4px;
+  color: var(--mco-amber);
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.mco-detail-rows {
+  display: grid;
+  border-top: 1px solid rgba(137, 172, 201, 0.18);
+}
+
+.mco-detail-rows div {
+  display: grid;
+  grid-template-columns: 32px minmax(78px, 0.76fr) 1fr;
+  gap: 8px;
+  align-items: center;
+  min-height: 43px;
+  border-bottom: 1px solid rgba(137, 172, 201, 0.18);
+}
+
+.mco-detail-rows span {
+  display: grid;
+  min-width: 28px;
+  height: 20px;
+  place-items: center;
+  border: 1px solid rgba(71, 216, 255, 0.24);
+  border-radius: 3px;
+  color: #9fd8f3;
+  font-size: 0.56rem;
+  font-weight: 900;
+}
+
+.mco-detail-rows small {
+  color: #9fb7c9;
+}
+
+.mco-detail-rows strong {
+  color: #fff;
+  font-size: 0.88rem;
+  line-height: 1.25;
+}
+
+.mco-stars {
+  color: var(--mco-amber) !important;
+}
+
+.mco-stars em {
+  display: block;
+  margin-top: 4px;
+  color: #b7cddd;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.mco-report-button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 9px 12px;
+  border: 1px solid rgba(31, 143, 255, 0.7);
+  border-radius: 5px;
+  background: linear-gradient(180deg, rgba(31, 143, 255, 0.78), rgba(21, 98, 177, 0.9));
+  color: #fff;
+  cursor: pointer;
+}
+
+.mco-detail-disclaimer {
+  margin: 10px 0 0;
+  color: #9fb7c9;
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.mco-bottom-grid {
+  display: grid;
+  grid-template-columns: minmax(720px, 1fr) 380px;
+  gap: 8px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mco-monthly-chart,
+.mco-species-card {
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mco-card-title h2 span {
+  color: #c3d7e6;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.mco-chart-legend {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  color: #aac3d6;
+  font-size: 0.76rem;
+}
+
+.mco-chart-legend i {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 4px;
+  border-radius: 2px;
+}
+
+.mco-chart-legend .damaged,
+.mco-stack .damaged {
+  background: var(--mco-red);
+}
+
+.mco-chart-legend .possible,
+.mco-stack .possible {
+  background: var(--mco-amber);
+}
+
+.mco-chart-legend .none,
+.mco-stack .none {
+  background: var(--mco-green);
+}
+
+.mco-stacked-bars {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+  align-items: end;
+  min-height: 116px;
+  padding: 4px 18px 12px;
+}
+
+.mco-stacked-month {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  min-height: 112px;
+  align-content: end;
+}
+
+.mco-stacked-month.peak::before {
+  content: "";
+  position: absolute;
+  inset: 10px -6px 19px;
+  border: 1px solid rgba(31, 143, 255, 0.65);
+  background: rgba(31, 143, 255, 0.04);
+}
+
+.mco-stack {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 26px;
+  overflow: hidden;
+  border-radius: 4px 4px 0 0;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.mco-stack b {
+  min-height: 3px;
+}
+
+.mco-stacked-month strong,
+.mco-stacked-month span {
+  position: relative;
+  z-index: 1;
+  color: #dcefff;
+  font-size: 0.72rem;
+}
+
+.mco-species-body {
+  display: grid;
+  grid-template-columns: 122px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 6px 14px 16px;
+}
+
+.mco-donut {
+  width: 120px;
+  height: 120px;
+  transform: rotate(-90deg);
+}
+
+.mco-donut circle {
+  fill: none;
+  stroke-width: 20;
+  stroke-linecap: butt;
+}
+
+.mco-donut .base {
+  stroke: rgba(137, 172, 201, 0.18);
+}
+
+.mco-species-list {
+  display: grid;
+  gap: 8px;
+}
+
+.mco-species-list span,
+.mco-species-list strong {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  color: #aac3d6;
+  font-size: 0.76rem;
+}
+
+.mco-species-list i {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+}
+
+.mco-species-list b {
+  overflow: hidden;
+  color: #dcefff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mco-species-list em {
+  color: #aac3d6;
+  font-style: normal;
 }
 
 .handoff-box {

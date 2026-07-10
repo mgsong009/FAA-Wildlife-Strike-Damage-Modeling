@@ -1,0 +1,2 @@
+AIRPORT_ID,AIRPORT,total,damaged,damage_rate,total_rank,damaged_rank,top_phase,top_phase_count,peak_months,peak_month_count
+KMCO,ORLANDO INTL,806,57,0.0707196029776675,8,4,Approach,354,Aug-Sep,257
